@@ -1,15 +1,20 @@
 import smtplib
 import getpass
+import database_query_builder as h
+import guipython as gui
+
+emails = h.list_of_emails
+print(emails)
 
 HOST = "smtp-mail.outlook.com"
 PORT = 587
 
 FROM_EMAIL = "lakshyaagarwal04@outlook.com"
-TO_EMAILS = ["100lakshyaagarwal@gmail.com", "lakshya.agarwal2022@vitstudent.ac.in","aaliya.2022@vitstudent.ac.in"]  # List of recipients
-PASSWORD = getpass.getpass("Enter password: ")
+TO_EMAILS = emails
+PASSWORD = getpass.getpass("Enter password: ")#7071LAKSa
 
-SUBJECT = "fewfe"
-BODY = "eufheufefh"  # Message body
+SUBJECT = gui.subject
+BODY = gui.body
 
 # Compose the email message
 MESSAGE = f"Subject: {SUBJECT}\n\n{BODY}"
