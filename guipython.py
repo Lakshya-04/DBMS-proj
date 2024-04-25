@@ -2,8 +2,12 @@ import tkinter as tk
 from tkinter import ttk
 from ttkthemes import ThemedStyle
 
+selected_options = []
+subject_text = ""
+body_text = "" 
+
 def on_submit():
-    selected_options = []
+    global selected_options,subject_text,body_text
 
     # Degree
     if var_btech.get():
@@ -36,6 +40,12 @@ def on_submit():
         selected_options.append("CGPA Below 9.0")
 
     result_label.config(text=", ".join(selected_options))
+
+    # Print subject and body
+    subject_text = subject_entry.get()
+    body_text = body_entry.get("1.0", "end-1c")  # Get all text excluding the trailing newline
+
+    return selected_options, subject_text, body_text
 
 # Create the main window
 root = tk.Tk()
@@ -71,7 +81,7 @@ for i, course in enumerate(course_options):
 year_frame = ttk.LabelFrame(root, text="Year of Study")
 year_frame.grid(row=1, column=0, padx=10, pady=5, sticky="ew")
 
-year_options = ["1st Year", "2nd Year", "3rd Year", "4th Year"]
+year_options = ["1st", "2nd", "3rd", "4th"]
 year_vars = [tk.BooleanVar(value=True) for _ in range(len(year_options))]
 for i, year in enumerate(year_options):
     checkbox_year = ttk.Checkbutton(year_frame, text=year, variable=year_vars[i])
@@ -109,13 +119,27 @@ checkbox_cgpa_above_9.grid(row=0, column=0, padx=5, pady=2, sticky="w")
 checkbox_cgpa_below_9 = ttk.Checkbutton(cgpa_frame, text="Below 9.0", variable=var_cgpa_below_9)
 checkbox_cgpa_below_9.grid(row=0, column=1, padx=5, pady=2, sticky="w")
 
+# Subject input
+subject_frame = ttk.LabelFrame(root, text="Subject")
+subject_frame.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
+subject_entry = ttk.Entry(subject_frame)
+subject_entry.grid(row=0, column=0, padx=5, pady=2, sticky="ew")
+
+# Body input
+body_frame = ttk.LabelFrame(root, text="Body")
+body_frame.grid(row=1, column=2, padx=10, pady=5, sticky="ew")
+body_entry = tk.Text(body_frame, wrap="word", height=4)  # Set height to 4 lines
+body_entry.grid(row=0, column=0, padx=5, pady=2, sticky="ew")
 # Create submit button
 submit_button = ttk.Button(root, text="Submit", command=on_submit)
-submit_button.grid(row=4, column=0, columnspan=2, pady=10)
+submit_button.grid(row=2, column=2, padx=10, pady=5, sticky="ew")
 
 # Create label to display result
 result_label = ttk.Label(root, text="")
-result_label.grid(row=5, column=0, columnspan=2)
+result_label.grid(row=6, column=0, columnspan=2)
 
 # Run the main event loop
 root.mainloop()
+
+subject = str(subject_text)
+body = str(body_text)
