@@ -2,7 +2,7 @@ import smtplib
 import getpass
 import database_query_builder as h
 import guipython as gui
-
+#7071LAKSa
 emails = h.list_of_emails
 print(emails)
 
@@ -11,7 +11,7 @@ PORT = 587
 
 FROM_EMAIL = "lakshyaagarwal04@outlook.com"
 TO_EMAILS = emails
-PASSWORD = getpass.getpass("Enter password: ")#7071LAKSa
+PASSWORD = getpass.getpass("Enter password: ")
 
 SUBJECT = gui.subject
 BODY = gui.body
